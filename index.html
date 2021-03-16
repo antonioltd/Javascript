@@ -1,48 +1,110 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Example Domain</title>
 
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src='script.js'></script>
+
     <style type="text/css">
-    body {
+      body {
         background-color: #f0f0f2;
         margin: 0;
         padding: 0;
-        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        
-    }
-    div {
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
+          'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+      .wrapper {
+        position: relative;
         width: 600px;
         margin: 5em auto;
         padding: 2em;
         background-color: #fdfdff;
         border-radius: 0.5em;
-        box-shadow: 2px 3px 7px 2px rgba(0,0,0,0.02);
-    }
-    a:link, a:visited {
+        box-shadow: 2px 3px 7px 2px rgba(0, 0, 0, 0.02);
+      }
+      #input {
+        display: inline;
+      }
+      #submit {
+        display: inline;
+      }
+      .hidden {
+        display: none;
+      }
+      /* .warning-message {
+
+      } */
+
+      #score {
+        position: absolute;
+        right: 35px;
+        height: 100px;
+        font-size: 50px;
+      }
+
+      #point-string {
+        position: absolute;
+        right: 5px;
+        font-size: 1em;
+        top: 65px;
+      }
+
+      a:link,
+      a:visited {
         color: #38488f;
         text-decoration: none;
-    }
-    @media (max-width: 700px) {
+      }
+      @media (max-width: 700px) {
         div {
-            margin: 0 auto;
-            width: auto;
+          margin: 0 auto;
+          width: auto;
         }
-    }
-    </style>    
-</head>
+      }
+    </style>
+    <script
+      type="text/javascript"
+      src="script.js"
+      charset="utf-8"
+      defer
+    ></script>
+  </head>
 
-<body>
-<div>
-    <h1>Example Domain</h1>
-    <p>This domain is for use in illustrative examples in documents. You may use this
-    domain in literature without prior coordination or asking for permission.</p>
-    <p><a href="https://www.iana.org/domains/example">More information...</a></p>
-</div>
-</body>
+  <body onload="onBodyLoad()">
+    <div class="wrapper">
+      <button id="again-btn" style="height: 50px; font-size: 30px">
+        Again
+      </button>
+      <label id="score">20 </label>
+      <br />
+      <span id="point-string">pts.</span>
+
+      <h1>
+        Guess My Number:
+        <span id="secret-number">❓</span>
+      </h1>
+
+      <input
+        id="input"
+        type="number"
+        pattern="\d"
+        style="
+          text-align: center;
+          height: 100px;
+          width: 20%;
+          padding: 0;
+          font-size: 50px;
+        "
+      />
+      <button
+        id="submit"
+        type="submit"
+        style="height: 50px; font-size: 30px; margin-left: 10px"
+      >
+        Submit
+      </button>
+      <span class="warning-message hidden">Too low</span>
+    </div>
+  </body>
 </html>

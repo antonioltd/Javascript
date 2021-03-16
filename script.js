@@ -1,38 +1,100 @@
-let dolphinsAverageScore;
-let koalasAverageScore;
+'user strict';
 
-const dolphinsScores = {
-    firstAttempt : 20,
-    secondAttempt : 30,
-    thirdAttempt : 40,
-}
+// let dolphinsAverageScore;
+// let koalasAverageScore;
 
-const koalasScores = {
-    firstAttempt : 20,
-    secondAttempt : 30,
-    thirdAttempt : 40,
-}
+// const dolphinsScores = {
+//   firstAttempt: 20,
+//   secondAttempt: 30,
+//   thirdAttempt: 40,
+// };
 
-const calculateTeamAverage =(scores) => {
-    return (scores.firstAttempt + scores.secondAttempt + scores.thirdAttempt) / 3;
-}
+// const koalasScores = {
+//   firstAttempt: 20,
+//   secondAttempt: 30,
+//   thirdAttempt: 40,
+// };
 
-const result = (dolphinsScores,koalasScores) => {
-    dolphinsAverageScore = calculateTeamAverage(dolphinsScores);
-    koalasAverageScore = calculateTeamAverage(koalasScores);
-    const higherScoreTeam = dolphinsAverageScore > koalasAverageScore ? "Dolphin" : dolphinsAverageScore === koalasAverageScore ? "TIE" : "Koalas";
-    
-    switch (higherScoreTeam) {
-        case "Dolphin":
-            if(dolphinsAverageScore >= (koalasAverageScore * 2 )) return `${higherScoreTeam} win (${dolphinsAverageScore} vs. ${koalasAverageScore})`; 
-        case "Koalas":
-            if(koalasAverageScore >= (dolphinsAverageScore * 2 )) return `${higherScoreTeam} win (${koalasAverageScore} vs. ${dolphinsAverageScore})`;       
-    
-        default:
-            return "No team wins!"
+// const calculateTeamAverage = scores => {
+//   return (scores.firstAttempt + scores.secondAttempt + scores.thirdAttempt) / 3;
+// };
+
+// const result = (dolphinsScores, koalasScores) => {
+//   dolphinsAverageScore = calculateTeamAverage(dolphinsScores);
+//   koalasAverageScore = calculateTeamAverage(koalasScores);
+//   const higherScoreTeam =
+//     dolphinsAverageScore > koalasAverageScore
+//       ? 'Dolphin'
+//       : dolphinsAverageScore === koalasAverageScore
+//       ? 'TIE'
+//       : 'Koalas';
+
+//   switch (higherScoreTeam) {
+//     case 'Dolphin':
+//       if (dolphinsAverageScore >= koalasAverageScore * 2)
+//         return `${higherScoreTeam} win (${dolphinsAverageScore} vs. ${koalasAverageScore})`;
+//     case 'Koalas':
+//       if (koalasAverageScore >= dolphinsAverageScore * 2)
+//         return `${higherScoreTeam} win (${koalasAverageScore} vs. ${dolphinsAverageScore})`;
+
+//     default:
+//       return 'No team wins!';
+//   }
+// };
+
+// const res = result(dolphinsScores, koalasScores);
+// console.log(res);
+let initialSecretNum;
+
+const submitBtn = document.querySelector('#submit');
+const againBtn = document.querySelector('#again-btn');
+const secretNumberBox = document.querySelector('#secret-number');
+const input = document.querySelector('#input');
+const warningMessageEl = document.querySelector('.warning-message');
+const scoreEl = document.querySelector('#score');
+const initialPoints = 20;
+
+const onBodyLoad = () => {
+  initialSecretNum = Math.trunc(Math.random() * 20 + 1);
+  input.value = 0;
+};
+againBtn.addEventListener('click', () => {
+  initialSecretNum = Math.floor(Math.random() * 20 + 1);
+  input.value = 0;
+  submitBtn.disabled = false;
+  input.disabled = false;
+  warningMessageEl.style.display = 'none';
+  scoreEl.textContent = initialPoints;
+});
+submitBtn.addEventListener('click', () => {
+  if (scoreEl.textContent == 0) {
+    warningMessageEl.textContent = 'You ran out of points.';
+    return;
+  }
+  if (initialSecretNum === Number(input.value)) {
+    document.querySelector('div').style.backgroundColor = 'aqua';
+    submitBtn.disabled = true;
+    input.disabled = true;
+    warningMessageEl.style.display = 'block';
+    warningMessageEl.style.color = 'Blue';
+    warningMessageEl.style.fontSize = '50px';
+    secretNumberBox.textContent = '✔';
+
+    warningMessageEl.textContent = 'Correct';
+  } else {
+    if (initialSecretNum > Number(input.value)) {
+      warningMessageEl.classList.remove('hidden');
+      warningMessageEl.style.display = 'block';
+      warningMessageEl.textContent = 'Too low';
+      warningMessageEl.style.color = 'red';
+      warningMessageEl.style.fontSize = '50px';
+      scoreEl.textContent = Number(scoreEl.textContent) - 1;
+    } else {
+      warningMessageEl.style.fontSize = '50px';
+      warningMessageEl.style.color = 'red';
+      warningMessageEl.textContent = 'Too high';
+      warningMessageEl.style.display = 'block';
+      scoreEl.textContent = Number(scoreEl.textContent) - 1;
     }
-}
-
-
-const res = result(dolphinsScores,koalasScores);
-console.log(res)
+  }
+});
