@@ -65,6 +65,7 @@ againBtn.addEventListener('click', () => {
   input.disabled = false;
   warningMessageEl.style.display = 'none';
   scoreEl.textContent = initialPoints;
+  secretNumberBox.textContent = '❓';
 });
 submitBtn.addEventListener('click', () => {
   if (scoreEl.textContent == 0) {
@@ -77,8 +78,9 @@ submitBtn.addEventListener('click', () => {
     input.disabled = true;
     warningMessageEl.style.display = 'block';
     warningMessageEl.style.color = 'Blue';
-    warningMessageEl.style.fontSize = '50px';
+
     secretNumberBox.textContent = '✔';
+    secretNumberBox.style.color = 'green';
 
     warningMessageEl.textContent = 'Correct';
   } else {
@@ -87,10 +89,9 @@ submitBtn.addEventListener('click', () => {
       warningMessageEl.style.display = 'block';
       warningMessageEl.textContent = 'Too low';
       warningMessageEl.style.color = 'red';
-      warningMessageEl.style.fontSize = '50px';
+
       scoreEl.textContent = Number(scoreEl.textContent) - 1;
     } else {
-      warningMessageEl.style.fontSize = '50px';
       warningMessageEl.style.color = 'red';
       warningMessageEl.textContent = 'Too high';
       warningMessageEl.style.display = 'block';
